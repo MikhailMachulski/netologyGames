@@ -6,33 +6,36 @@ import java.io.IOException;
 
 public class Main {
 
-    static StringBuilder builder = new StringBuilder();
+    protected static StringBuilder builder = new StringBuilder();
 
     public static void main(String[] args) {
-	
-	createDirInGames("src//main");
-	createFile("src/main", "Main.java");
-	createFile("src/main", "Utils.java");
-	createDirInGames("src//test");
 
-	createDirInGames("/res");
-	createDirInGames("res//drawables");
-	createDirInGames("res//vectors");
-	createDirInGames("res//icons");
+        String[] pathsDir = new String[8];
+        pathsDir[0] = "src//main";
+        pathsDir[1] = "src//test";
+        pathsDir[2] = "/res";
+        pathsDir[3] = "res//drawables";
+        pathsDir[4] = "res//vectors";
+        pathsDir[5] = "res//icons";
+        pathsDir[6] = "/savegames";
+        pathsDir[7] = "/temp";
 
-	createDirInGames("/savegames");
+        for (String s : pathsDir) {
+            createDirInGames(s);
+        }
 
-	createDirInGames("/temp");
-	createFile("temp", "temp.txt");
+        createFile("src/main", "Main.java");
+        createFile("src/main", "Utils.java");
+        createFile("temp", "temp.txt");
 
-	txtWriter(builder);
+        txtWriter(builder);
 
     }
 
     public static void createDirInGames(String dirPath) {
-        File D = new File("/Users/mikhailmachulski/IdeaProjects/Games/" + dirPath);
-        boolean D1 = D.mkdirs();
-        if (D1) {
+        File file = new File("/Users/mikhailmachulski/IdeaProjects/Games/" + dirPath);
+        boolean bool = file.mkdirs();
+        if (bool) {
             String message = "Folder " + dirPath + " is created successfully";
             System.out.println(message);
             builder.append(message);
@@ -46,9 +49,9 @@ public class Main {
     }
 
     public static void createFile(String filePath, String fileName) {
-        File F = new File("/Users/mikhailmachulski/IdeaProjects/Games/" + filePath + "//" + fileName);
+        File file = new File("/Users/mikhailmachulski/IdeaProjects/Games/" + filePath + "//" + fileName);
         try {
-            if (F.createNewFile()) {
+            if (file.createNewFile()) {
                 String message = "File " + fileName + " created in " + filePath;
                 System.out.println(message);
                 builder.append(message);
@@ -62,7 +65,7 @@ public class Main {
     }
 
     public static void txtWriter(StringBuilder text) {
-        try (FileWriter writer = new FileWriter("/Users/mikhailmachulski/IdeaProjects/Games/temp//temp.txt", true)){
+        try (FileWriter writer = new FileWriter("/Users/mikhailmachulski/IdeaProjects/Games/temp//temp.txt", true)) {
             writer.write(text.toString());
             writer.append(text);
             writer.flush();
